@@ -1,105 +1,120 @@
-<!DOCTYPE HTML>
-<!--
-	Forty by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Almostafa0338</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="icon" href="ic.jpeg" type="image/icon type">
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		<script src="https://kit.fontawesome.com/84cd01d152.js" crossorigin="anonymous"></script>
-	</head>
-	<body class="is-preload">
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmed Almostafa | Software Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" href="ic.jpeg" type="image/icon type">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    almostafa0338
+                </a>
+                <button class="mobile-menu-btn" id="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <!--<li><a href="skills.html">Skills</a></li>-->
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#blogs">Blogs</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="particles-container" id="particles"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Ahmed Almostafa</h1>
+                    <div class="typing-container" id="typing-container">
+                        <span class="typing-text" id="typing-text"></span>
+                    </div>
+                    <h3>Welcome to My Website.</h3>
+                    <p>I build scalable web applications and digital solutions that enhance user experience and drive business outcomes. With expertise in both front-end and back-end technologies, I create secure, responsive, and high-performance systems.</p>
+                    <div class="hero-btns">
+                        <a href="#projects" class="btn">View My Work</a>
+                        <a href="contact.html" class="btn btn-outline">Contact Me</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="floating-shapes" id="floating-shapes"></div>
+                    <div class="profile-img-container">
+                        <img src="images/photo.jpg" alt="Ahmed Almostafa" class="profile-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-				<!-- Header -->
-					<header id="header" class="alt">
-						<a href="index.html" class="logo"><strong>Almostafa0338</strong></a>
-						<nav>
-							<a href="#menu">Menu</a>
-						</nav>
-					</header>
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <div class="section-title-center">
+                <h2>Recent Projects</h2>
+            </div>
+            <div class="projects-section">
+                <div class="projects-grid" id="projects-grid">
+                    <!-- Projects will be populated by JavaScript -->
+                </div>
+                <!-- NEW: View All Projects Button -->
+                <a href="#" class="btn btn-outline view-all-projects-btn" id="view-all-projects-btn">View All Projects</a>
+            </div>
+        </div>
+    </section>
 
-				<!-- Menu -->
-					<nav id="menu">
-						<ul class="links">
-							<li><a href="index.html">Home</a></li>
-							<li><a href="projects.html">Projects</a></li>
-							<li><a href="resume.pdf">Resume</a></li>
-						</ul>
-						<ul class="actions stacked">
-							<li><a href="#footer" class="button primary fit">Contact</a></li>
-						</ul>
-					</nav>
+    <!-- Blogs Section - UPDATED -->
+    <section class="blogs" id="blogs">
+        <div class="container">
+            <div class="section-title-center">
+                <h2>Recent Blogs</h2>
+            </div>
+            <div class="blogs-section">
+                <div class="blogs-grid" id="blogs-grid">
+                    <!-- Blogs will be populated by JavaScript -->
+                </div>
+                <a href="#" class="btn btn-outline view-all-blogs-btn" id="view-all-blogs-btn">View All Blogs</a>
+            </div>
+        </div>
+    </section>
 
-				<!-- Banner -->
-					<section id="banner" class="major">
-						<div class="inner">
-							<header class="major">
-								<h1>Hi Three! </h1>
-								<h2>I'm <span class="hlight">AHMED ALMOSTAFA</span></h2>
-							</header>
-							<div class="content" style="display: block;">
-								<h3 class="hlight">Back-end Developer </h3>
-								<h3 class="hlight">Freelance </h3>
-								<h3 class="hlight">Security Analyst </h3>
-							</div>
-						</div>
-					</section>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://github.com/almostafa0338" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/almostafa0338/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://t.me/darkmedo20" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                    <a href="https://medium.com/@darkmedo20" aria-label="Medium"><i class="fab fa-medium"></i></a>
+                </div>
+                <div style="color: black;" class="copyright">
+                    <p>&copy; almostafa0338</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-				<!-- Main -->
-					<div id="main">
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
 
-						<!-- Two -->
-							<section id="two">
-								<div class="inner">
-									<header class="major">
-										<h2>LET ME <span class="hlight">INTRODUCE </span>MYSELF </h2>
-									</header>
-									<p>I love programming and love to figure out things by learning new things.</p>
-									<p>I am fluent in classics like <span class="hlight">Java, Python and PHP.</span> </p>
-									<p>My field of Interest's are building new <span class="hlight">Web Technologies and Products </span>and also in areas related to <span class="hlight">Cybersecurity.</span></p>
-									<p>Whenever possible, I also apply my passion for developing products with <span class="hlight">Node.js </span>and <span class="hlight"> Modern Javascript Library and Frameworks </span>like <span class="hlight">React.js and Next.js, </span>Also passionate about Python Framework, <span class="hlight">Django and Flask.</span></p>
-								</div>
-							</section>
-
-					</div>
-
-				<!-- Footer -->
-					<footer id="footer">
-						<div class="inner" style="text-align: center;">
-							<ul class="icons">
-								<li><a href="https://x.com/darkmedo20" class="icon brands alt fa-x"></a></li>
-								<li><a href="https://www.instagram.com/ahmed_almostafa.02/" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-								<li><a href="https://github.com/darkmedo20" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-								<li><a href="https://www.linkedin.com/in/ahmed-almostafa-omer/" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-								<li><a href="https://t.me/darkmedo20" class="icons fa-brands fa-telegram fa-2xl"></a></li>
-								<li><a href="https://medium.com/@drakmedo20" class="icon brands alt fa-medium"><span class="label">PAn</span></a></li>
-								
-							</ul>
-							<ul class="copyright">
-								<li>&copy; Darkmedo20 | </li><li> Original Design: <a href="https://html5up.net">HTML5 UP</a></li>
-							</ul>
-						</div>
-					</footer>
-
-			</div>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
+    <script src="script.js"></script>
+</body>
 </html>
+

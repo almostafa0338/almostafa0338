@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why 'Working Code' Isn't Enough | Ahmed Almostafa | Software Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" href="ic.jpeg" type="image/icon type">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Prism.js CSS for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Additional styles for enhanced blog */
+        .blog-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .blog-header {
+            margin-bottom: 2rem; /* Reduced from 3rem */
+            padding-top: 100px; /* Added padding to push content below fixed header */
+            text-align: left; /* Changed from center */
+        }
+        
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem; /* Reduced from 1rem */
+            color: var(--light-text);
+            line-height: 1.2;
+            margin-top: 15px;
+        }
+        
+        .blog-content {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #e2e8f0;
+        }
+        
+        .blog-content p {
+            margin-bottom: 1.5rem;
+            color: #cbd5e1;
+        }
+        
+        .blog-content h3 {
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--light-text);
+            font-size: 1.6rem;
+            border-bottom: 2px solid var(--dark-border);
+            padding-bottom: 0.5rem;
+        }
+        
+        .blog-content ul, .blog-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        
+        .blog-content li {
+            margin-bottom: 0.5rem;
+            color: #cbd5e1;
+        }
+        
+        .blog-content strong {
+            color: var(--light-text);
+        }
+        
+        .blog-content em {
+            color: #a0aec0;
+        }
+        
+        .quote-box {
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            background: var(--dark-card);
+            font-style: italic;
+            border-radius: 0 8px 8px 0;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .quote-box p {
+            margin-bottom: 0.5rem;
+            color: #e2e8f0;
+        }
+        
+        .code-comparison {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2.5rem 0;
+        }
+        
+        .code-example {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            border: 1px solid var(--dark-border);
+            position: relative;
+        }
+        
+        .code-header {
+            background: var(--dark-card);
+            color: var(--light-text);
+            padding: 0.8rem 1rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--dark-border);
+        }
+        
+        .bad-example .code-header {
+            border-left: 4px solid #ef4444;
+        }
+        
+        .good-example .code-header {
+            border-left: 4px solid #10b981;
+        }
+        
+        .code-badge {
+            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive code blocks */
+        .code-example pre {
+            margin: 0;
+            background: #1a1a1a;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            border-radius: 0 0 8px 8px;
+            position: relative;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            max-width: 100%;
+        }
+        
+        /* Enhanced responsive code blocks */
+        .code-example pre code {
+            display: block;
+            white-space: pre;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            word-wrap: normal;
+            word-break: normal;
+            max-width: 100%;
+        }
+        
+        /* Mobile-optimized code font size */
+        @media (max-width: 768px) {
+            .code-example pre {
+                font-size: 0.75rem;
+                padding: 1.2rem;
+            }
+            
+            .code-example pre code {
+                font-size: 0.75rem;
+            }
+            
+            .code-comparison {
+                gap: 1.5rem;
+            }
+            
+            .code-example {
+                min-width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .code-example pre {
+                font-size: 0.7rem;
+                padding: 1rem;
+            }
+            
+            .code-example pre code {
+                font-size: 0.7rem;
+            }
+            
+            /* Force horizontal scroll on very small screens */
+            .code-example pre {
+                overflow-x: scroll;
+            }
+        }
+        
+        /* Scrollbar styling for code blocks */
+        .code-example pre::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        
+        .code-example pre::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+        
+        .code-example pre::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+        
+        .code-example pre::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Override Prism.js styles to fit dark theme */
+        .code-example pre code {
+            font-family: 'Roboto Mono', monospace !important;
+            background: transparent !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
+            color: #e2e8f0 !important;
+            min-width: min-content;
+        }
+        
+        /* Mobile swipe indicator for code blocks */
+        .code-example pre.scrollable:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(26, 26, 26, 0.7));
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .code-example pre.scrollable:after {
+            opacity: 1;
+        }
+        
+        .key-takeaways {
+            background: var(--dark-card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border-left: 5px solid var(--primary-color);
+            border: 1px solid var(--dark-border);
+        }
+        
+        .key-takeaways h3 {
+            margin-top: 0;
+            color: var(--light-text);
+        }
+        
+        .key-takeaways-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .takeaway-card {
+            background: rgba(30, 41, 59, 0.3);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--dark-border);
+            transition: var(--transition);
+        }
+        
+        .takeaway-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .takeaway-icon {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .takeaway-card h4 {
+            color: var(--light-text);
+            margin-bottom: 0.5rem;
+        }
+        
+        .takeaway-card p {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+        
+        .blog-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 3rem 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--dark-border);
+        }
+        
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--dark-card);
+            border-radius: 8px;
+            color: var(--light-text);
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid var(--dark-border);
+        }
+        
+        .nav-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .share-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--dark-card);
+            border-radius: 10px;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .share-text {
+            font-weight: 500;
+            color: var(--light-text);
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .share-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(30, 41, 59, 0.5);
+            color: var(--gray-text);
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid var(--dark-border);
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-3px);
+            color: white;
+        }
+        
+        .twitter:hover { 
+            background: #1da1f2; 
+            border-color: #1da1f2;
+        }
+        
+        .linkedin:hover { 
+            background: #0077b5; 
+            border-color: #0077b5;
+        }
+        
+        .facebook:hover { 
+            background: #3b5998; 
+            border-color: #3b5998;
+        }
+        
+        .link:hover { 
+            background: var(--primary-color); 
+            border-color: var(--primary-color);
+        }
+        
+        /* Blog image styling */
+        .blog-img {
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            border: 1px solid var(--dark-border);
+            width: 100%;
+        }
+        
+        .blog-name {
+            margin-top: 15px;
+            color: var(--light-text);
+        }
+        
+        /* Custom styling for inline code */
+        .blog-content code:not(pre code) {
+            background: rgba(59, 130, 246, 0.1);
+            color: #60a5fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            word-break: break-word;
+        }
+        
+        /* Remove copy and fullscreen buttons */
+        .code-copy-btn, .code-fullscreen-btn {
+            display: none !important;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .code-comparison {
+                gap: 1.5rem;
+            }
+            
+            .code-example {
+                min-width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .blog-header {
+                padding-top: 90px; /* Adjust for mobile */
+            }
+            
+            .blog-title {
+                font-size: 2rem;
+            }
+            
+            .code-comparison {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .key-takeaways-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .blog-meta {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .blog-header {
+                padding-top: 80px; /* Adjust for smaller screens */
+                text-align: center; /* Center align on small screens for better readability */
+            }
+            
+            .blog-title {
+                font-size: 1.8rem;
+                text-align: center; /* Center align on small screens */
+            }
+            
+            .blog-content h3 {
+                font-size: 1.4rem;
+            }
+            
+            .blog-content {
+                font-size: 1rem;
+            }
+            
+            .code-example pre {
+                padding: 0.75rem;
+            }
+            
+            .code-example pre code {
+                font-size: 0.7rem;
+                overflow-x: scroll;
+            }
+            
+            .share-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .blog-title {
+                font-size: 1.6rem;
+            }
+            
+            .blog-content {
+                font-size: 0.95rem;
+            }
+            
+            .code-example pre code {
+                font-size: 0.65rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="../index.html" class="logo">
+                    almostafa0338
+                </a>
+                <button class="mobile-menu-btn" id="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <!--<li><a href="skills.html">Skills</a></li>-->
+                    <li><a href="../index.html#projects">Projects</a></li>
+                    <li><a href="../index.html#blogs">Blogs</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog Content -->
+    <main class="blog-container">
+        <div class="blog-header">
+            <img class="blog-img" src="../images/wwc.png" alt="Working Code" style="max-width: 100%;">
+            <h1 class="blog-title">Why 'Working Code' Isn't Enough</h1>
+        </div>
+
+        <div class="blog-content">
+            <p>There is a moment early in every developer's career that feels like a victory. You've been wrestling with a complex algorithm or a tricky bug for hours. Finally, you hit "Run," the tests pass, and the feature works. You push the code and close the ticket. Job done, right?</p>
+            
+            <p>Not exactly.</p>
+
+            <p>In a professional environment, writing code that <em>works</em> is merely the baseline. The real challenge—and what separates a junior coder from a senior engineer—is writing code that is <strong>maintainable, readable, and resilient</strong>.</p>
+
+            <p>Here is why "working code" isn't enough, and why I prioritize readable architecture in every project I build.</p>
+
+            <h3>The "Write Once, Read Many" Reality</h3>
+            <p>A popular maxim in software engineering states that code is read 10 times more often than it is written.</p>
+            
+            <p>When we write "clever" one-liners or spaghetti code that simply gets the job done, we are creating a debt for the future. That debt is paid by:</p>
+            <ul>
+                <li><strong>Teammates</strong> who have to review your pull request.</li>
+                <li><strong>New hires</strong> trying to understand the codebase during onboarding.</li>
+                <li><strong>Your future self</strong> returning to the code six months later to fix a bug.</li>
+            </ul>
+            <p>If the code requires a road map and a compass to understand, it is effectively broken, even if it compiles perfectly.</p>
+
+            <h3>The Cost of Cognitive Load</h3>
+            <p>"Cognitive load" refers to the amount of working memory resources used. When a developer looks at a function, they shouldn't have to hold five different abstract variables and three nested loops in their head just to guess what the output is.</p>
+            
+            <p>Let's look at a practical example of "Working" vs. "Readable."</p>
+
+            <h3>The "It Works" Approach</h3>
+            <p>This function calculates the total price of a shopping cart, applying a discount if the user is a VIP, and adding tax. It runs perfectly.</p>
+
+            <div class="code-comparison">
+                <div class="code-example bad-example" data-title="Bad Example - 'It Works' Approach">
+                    <div class="code-header">
+                        <span>The "It Works" Approach</span>
+                        <span class="code-badge">Anti-pattern</span>
+                    </div>
+                    <pre><code class="language-javascript">// The Bad Example
+function c(l, u) {
+  let t = 0;
+  for (let i = 0; i < l.length; i++) {
+    t += l[i].p * l[i].q;
+  }
+  if (u.t === 1) {
+    t = t * 0.90;
+  }
+  return t * 1.08;
+}</code></pre>
+                </div>
+            </div>
+
+            <p><strong>The Problem:</strong></p>
+            <ul>
+                <li><strong>Ambiguous Naming:</strong> What is <code>c</code>? What is <code>l</code>? What does <code>u.t === 1</code> mean?</li>
+                <li><strong>Magic Numbers:</strong> Why are we multiplying by <code>1.08</code>? Is that tax? Shipping? A service fee?</li>
+                <li><strong>Result:</strong> To change this code, you have to decipher it first. This increases the chance of introducing bugs.</li>
+            </ul>
+
+            <h3>The Readable Approach</h3>
+            <p>Here is the same logic, refactored for readability.</p>
+
+            <div class="code-comparison">
+                <div class="code-example good-example" data-title="Good Example - Readable Approach">
+                    <div class="code-header">
+                        <span>The Readable Approach</span>
+                        <span class="code-badge">Best Practice</span>
+                    </div>
+                    <pre><code class="language-javascript">// The Good Example
+const TAX_RATE = 1.08;
+const VIP_DISCOUNT_MULTIPLIER = 0.90;
+
+function calculateCartTotal(cartItems, user) {
+  let subtotal = cartItems.reduce((acc, item) => 
+    acc + (item.price * item.quantity), 0);
+
+  if (isVipUser(user)) {
+    subtotal *= VIP_DISCOUNT_MULTIPLIER;
+  }
+
+  return subtotal * TAX_RATE;
+}
+
+function isVipUser(user) {
+  return user.type === 'VIP';
+}</code></pre>
+                </div>
+            </div>
+
+            <p><strong>The Improvement:</strong></p>
+            <ul>
+                <li><strong>Self-Documenting:</strong> The function names describe the <em>intent</em>.</li>
+                <li><strong>Constants:</strong> <code>TAX_RATE</code> makes it obvious what the number represents. If the tax rate changes, I know exactly where to update it.</li>
+                <li><strong>Helper Functions:</strong> Extracting <code>isVipUser</code> encapsulates that logic. If the definition of a VIP changes later, we only change it in one place.</li>
+            </ul>
+
+            <div class="quote-box">
+                <p><strong>Empathy as a Technical Skill:</strong> We often talk about "Soft Skills" and "Hard Skills" as separate entities. I believe that <strong>writing clean code is an act of empathy</strong>, which makes it both.</p>
+                <p>When you structure your architecture clearly—using patterns like MVC (Model-View-Controller) or simply adhering to the Single Responsibility Principle—you are being empathetic to the next human who touches your work. You are saying, <em>"I respect your time, so I made this easy to understand."</em></p>
+            </div>
+
+            <h3>The Business Case</h3>
+            <p>Finally, readable architecture isn't just about aesthetics; it's a business requirement.</p>
+            <ul>
+                <li><strong>Faster Debugging:</strong> Readable code makes it easier to spot where logic has gone wrong.</li>
+                <li><strong>Faster Onboarding:</strong> Companies spend thousands of dollars ramping up new developers. Clean code reduces that time.</li>
+                <li><strong>Scalability:</strong> You cannot build complex features on top of a shaky foundation.</li>
+            </ul>
+
+            <h3>Conclusion</h3>
+            <p>In my journey as a developer, I've learned that the computer doesn't care if my variable is named <code>x</code> or <code>cartTotal</code>. But the humans I work with definitely do.</p>
+            <p>My goal isn't just to write software that works; it's to write software that lives, breathes, and evolves without breaking. That starts with treating code as a form of communication, not just a set of instructions.</p>
+            
+            <!-- Share Section -->
+            <div class="share-section">
+                <span class="share-text">Found this useful? Share it:</span>
+                <div class="share-buttons">
+                    <a href="https://twitter.com/intent/tweet?text=Why%20'Working%20Code'%20Isn't%20Enough%20by%20@darkmedo20&url=https://darkmedo20.github.io/blog/working-code.html" class="share-btn twitter" aria-label="Share on Twitter" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://darkmedo20.github.io/blog/working-code.html&title=Why%20'Working%20Code'%20Isn't%20Enough&summary=Reflections%20on%20maintainability,%20empathy,%20and%20professional%20engineering.&source=darkmedo20.github.io" class="share-btn linkedin" aria-label="Share on LinkedIn" target="_blank">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://almostafa0338.github.io/blog/working-code.html" class="share-btn facebook" aria-label="Share on Facebook" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="share-btn link" aria-label="Copy link" id="copy-link">
+                        <i class="fas fa-link"></i>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://github.com/almostafa0338" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/almostafa0338/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://t.me/darkmedo20" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                    <a href="https://medium.com/@drakmedo20" aria-label="Medium"><i class="fab fa-medium"></i></a>
+                </div>
+                <div style="color: black;" class="copyright">
+                    <p>&copy; almostafa0338</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="../script.js"></script>
+    <script>
+        // Additional JavaScript for enhanced blog features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Copy link functionality
+            const copyLinkBtn = document.getElementById('copy-link');
+            if (copyLinkBtn) {
+                copyLinkBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const url = window.location.href;
+                    
+                    navigator.clipboard.writeText(url).then(() => {
+                        // Visual feedback
+                        const originalIcon = copyLinkBtn.innerHTML;
+                        copyLinkBtn.innerHTML = '<i class="fas fa-check"></i>';
+                        copyLinkBtn.style.background = '#10b981';
+                        copyLinkBtn.style.borderColor = '#10b981';
+                        copyLinkBtn.style.color = 'white';
+                        
+                        setTimeout(() => {
+                            copyLinkBtn.innerHTML = originalIcon;
+                            copyLinkBtn.style.background = '';
+                            copyLinkBtn.style.borderColor = '';
+                            copyLinkBtn.style.color = '';
+                        }, 2000);
+                    });
+                });
+            }
+            
+            // Add smooth scrolling for anchor links within the article
+            document.querySelectorAll('.blog-content a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href !== '#') {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(href);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 100,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+            
+            // Detect code blocks that need horizontal scrolling
+            document.querySelectorAll('.code-example pre').forEach(pre => {
+                const code = pre.querySelector('code');
+                const isScrollable = pre.scrollWidth > pre.clientWidth;
+                
+                if (isScrollable) {
+                    pre.classList.add('scrollable');
+                }
+            });
+            
+            // Initialize Prism.js for syntax highlighting
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+            
+            // Responsive text selection for code on mobile
+            if ('ontouchstart' in window) {
+                document.querySelectorAll('.code-example pre').forEach(pre => {
+                    pre.addEventListener('touchstart', function(e) {
+                        // Allow touch selection for code
+                        this.style.userSelect = 'text';
+                    }, { passive: true });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

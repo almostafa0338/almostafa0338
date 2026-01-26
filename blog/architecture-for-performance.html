@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture for Performance: Best Practices for Building Highly Functional and Resource-Efficient Systems | Ahmed Almostafa | Software Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" href="ic.jpeg" type="image/icon type">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Prism.js CSS for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Additional styles for enhanced blog */
+        .blog-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .blog-header {
+            margin-bottom: 2rem;
+            padding-top: 100px;
+            text-align: left;
+        }
+        
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--light-text);
+            line-height: 1.2;
+            margin-top: 15px;
+        }
+        
+        .blog-content {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #e2e8f0;
+        }
+        
+        .blog-content p {
+            margin-bottom: 1.5rem;
+            color: #cbd5e1;
+        }
+        
+        .blog-content h3 {
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--light-text);
+            font-size: 1.6rem;
+            border-bottom: 2px solid var(--dark-border);
+            padding-bottom: 0.5rem;
+        }
+        
+        .blog-content h4 {
+            margin-top: 1.8rem;
+            margin-bottom: 0.8rem;
+            color: var(--light-text);
+            font-size: 1.3rem;
+        }
+        
+        .blog-content ul, .blog-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        
+        .blog-content li {
+            margin-bottom: 0.5rem;
+            color: #cbd5e1;
+        }
+        
+        .blog-content strong {
+            color: var(--light-text);
+        }
+        
+        .blog-content em {
+            color: #a0aec0;
+        }
+        
+        .quote-box {
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            background: var(--dark-card);
+            font-style: italic;
+            border-radius: 0 8px 8px 0;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .quote-box p {
+            margin-bottom: 0.5rem;
+            color: #e2e8f0;
+        }
+        
+        .code-comparison {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2.5rem 0;
+        }
+        
+        .code-example {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            border: 1px solid var(--dark-border);
+            position: relative;
+        }
+        
+        .code-header {
+            background: var(--dark-card);
+            color: var(--light-text);
+            padding: 0.8rem 1rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--dark-border);
+        }
+        
+        .bad-example .code-header {
+            border-left: 4px solid #ef4444;
+        }
+        
+        .good-example .code-header {
+            border-left: 4px solid #10b981;
+        }
+        
+        .code-badge {
+            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive code blocks */
+        .code-example pre {
+            margin: 0;
+            background: #1a1a1a;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            border-radius: 0 0 8px 8px;
+            position: relative;
+            -webkit-overflow-scrolling: touch;
+            max-width: 100%;
+        }
+        
+        /* Enhanced responsive code blocks */
+        .code-example pre code {
+            display: block;
+            white-space: pre;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            word-wrap: normal;
+            word-break: normal;
+            max-width: 100%;
+        }
+        
+        /* Mobile-optimized code font size */
+        @media (max-width: 768px) {
+            .code-example pre {
+                font-size: 0.75rem;
+                padding: 1.2rem;
+            }
+            
+            .code-example pre code {
+                font-size: 0.75rem;
+            }
+            
+            .code-comparison {
+                gap: 1.5rem;
+            }
+            
+            .code-example {
+                min-width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .code-example pre {
+                font-size: 0.7rem;
+                padding: 1rem;
+            }
+            
+            .code-example pre code {
+                font-size: 0.7rem;
+            }
+            
+            .code-example pre {
+                overflow-x: scroll;
+            }
+        }
+        
+        /* Scrollbar styling for code blocks */
+        .code-example pre::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        
+        .code-example pre::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+        
+        .code-example pre::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+        
+        .code-example pre::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Override Prism.js styles */
+        .code-example pre code {
+            font-family: 'Roboto Mono', monospace !important;
+            background: transparent !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
+            color: #e2e8f0 !important;
+            min-width: min-content;
+        }
+        
+        /* Mobile swipe indicator for code blocks */
+        .code-example pre.scrollable:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(26, 26, 26, 0.7));
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .code-example pre.scrollable:after {
+            opacity: 1;
+        }
+        
+        .key-takeaways {
+            background: var(--dark-card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border-left: 5px solid var(--primary-color);
+            border: 1px solid var(--dark-border);
+        }
+        
+        .key-takeaways h3 {
+            margin-top: 0;
+            color: var(--light-text);
+        }
+        
+        .key-takeaways-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .takeaway-card {
+            background: rgba(30, 41, 59, 0.3);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--dark-border);
+            transition: var(--transition);
+        }
+        
+        .takeaway-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .takeaway-icon {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .takeaway-card h4 {
+            color: var(--light-text);
+            margin-bottom: 0.5rem;
+        }
+        
+        .takeaway-card p {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+        
+        .blog-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 3rem 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--dark-border);
+        }
+        
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--dark-card);
+            border-radius: 8px;
+            color: var(--light-text);
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid var(--dark-border);
+        }
+        
+        .nav-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .share-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--dark-card);
+            border-radius: 10px;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .share-text {
+            font-weight: 500;
+            color: var(--light-text);
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .share-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(30, 41, 59, 0.5);
+            color: var(--gray-text);
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid var(--dark-border);
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-3px);
+            color: white;
+        }
+        
+        .twitter:hover { 
+            background: #1da1f2; 
+            border-color: #1da1f2;
+        }
+        
+        .linkedin:hover { 
+            background: #0077b5; 
+            border-color: #0077b5;
+        }
+        
+        .facebook:hover { 
+            background: #3b5998; 
+            border-color: #3b5998;
+        }
+        
+        .link:hover { 
+            background: var(--primary-color); 
+            border-color: var(--primary-color);
+        }
+        
+        /* Blog image styling */
+        .blog-img {
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            border: 1px solid var(--dark-border);
+            width: 100%;
+        }
+        
+        .blog-name {
+            margin-top: 15px;
+            color: var(--light-text);
+        }
+        
+        /* Custom styling for inline code */
+        .blog-content code:not(pre code) {
+            background: rgba(59, 130, 246, 0.1);
+            color: #60a5fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            word-break: break-word;
+        }
+        
+        /* Remove copy and fullscreen buttons */
+        .code-copy-btn, .code-fullscreen-btn {
+            display: none !important;
+        }
+        
+        /* Performance metrics styling */
+        .performance-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+        
+        .metric-card {
+            background: var(--dark-card);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid var(--dark-border);
+            transition: var(--transition);
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary-color);
+        }
+        
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-family: 'Roboto Mono', monospace;
+        }
+        
+        .metric-label {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* Architecture diagram styling */
+        .architecture-diagram {
+            background: var(--dark-card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            border: 1px solid var(--dark-border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .diagram-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--light-text);
+            font-size: 1.3rem;
+        }
+        
+        .performance-pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .pillar {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-top: 4px solid var(--primary-color);
+        }
+        
+        .pillar-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .pillar-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .pillar-title {
+            color: var(--light-text);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .pillar-content {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+        
+        /* Optimization techniques */
+        .optimization-techniques {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+        
+        .technique {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--dark-card);
+            border-radius: 10px;
+            border: 1px solid var(--dark-border);
+            transition: var(--transition);
+        }
+        
+        .technique:hover {
+            border-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+        
+        .technique-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .technique-content {
+            flex: 1;
+        }
+        
+        .technique-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+        
+        .technique-title {
+            color: var(--light-text);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .impact-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+        
+        .impact-high {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+        
+        .impact-medium {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+        
+        /* Database optimization table */
+        .db-optimization {
+            overflow-x: auto;
+            margin: 2.5rem 0;
+            border-radius: 10px;
+            border: 1px solid var(--dark-border);
+        }
+        
+        .db-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--dark-card);
+        }
+        
+        .db-table th {
+            background: rgba(30, 41, 59, 0.7);
+            color: var(--light-text);
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--dark-border);
+            font-weight: 600;
+        }
+        
+        .db-table td {
+            padding: 1rem;
+            color: #cbd5e1;
+            border-bottom: 1px solid var(--dark-border);
+        }
+        
+        .db-table tr:hover {
+            background: rgba(59, 130, 246, 0.05);
+        }
+        
+        .technique-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-recommended {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+        
+        .status-caution {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .code-comparison {
+                gap: 1.5rem;
+            }
+            
+            .code-example {
+                min-width: 100%;
+            }
+            
+            .performance-pillars {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .blog-header {
+                padding-top: 90px;
+            }
+            
+            .blog-title {
+                font-size: 2rem;
+            }
+            
+            .code-comparison {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .key-takeaways-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .performance-metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .technique {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .technique-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .blog-header {
+                padding-top: 80px;
+                text-align: center;
+            }
+            
+            .blog-title {
+                font-size: 1.8rem;
+                text-align: center;
+            }
+            
+            .blog-content h3 {
+                font-size: 1.4rem;
+            }
+            
+            .blog-content h4 {
+                font-size: 1.2rem;
+            }
+            
+            .blog-content {
+                font-size: 1rem;
+            }
+            
+            .code-example pre {
+                padding: 0.75rem;
+            }
+            
+            .code-example pre code {
+                font-size: 0.7rem;
+                overflow-x: scroll;
+            }
+            
+            .share-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .performance-metrics {
+                grid-template-columns: 1fr;
+            }
+            
+            .db-table {
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .blog-title {
+                font-size: 1.6rem;
+            }
+            
+            .blog-content {
+                font-size: 0.95rem;
+            }
+            
+            .code-example pre code {
+                font-size: 0.65rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="../index.html" class="logo">
+                    almostafa0338
+                </a>
+                <button class="mobile-menu-btn" id="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <!--<li><a href="skills.html">Skills</a></li>-->
+                    <li><a href="../index.html#projects">Projects</a></li>
+                    <li><a href="../index.html#blogs">Blogs</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog Content -->
+    <main class="blog-container">
+        <div class="blog-header">
+            <img class="blog-img" src="../images/wwc.png" alt="Performance Architecture" style="max-width: 100%;">
+            <h1 class="blog-title">Architecture for Performance: Best Practices for Building Highly Functional and Resource-Efficient Systems</h1>
+        </div>
+
+        <div class="blog-content">
+            <p>In today's digital landscape, performance isn't just a nice-to-have feature—it's a fundamental requirement. Users expect applications to load instantly, respond immediately, and scale seamlessly. Yet, performance optimization often comes as an afterthought, resulting in systems that work but don't excel.</p>
+            
+            <p>Over my career, I've architected systems that serve millions of users while maintaining sub-second response times and 99.99% availability. The secret isn't in magical optimizations, but in designing performance into the architecture from day one. In this post, I'll share the principles and patterns that separate performant systems from merely functional ones.</p>
+
+            <div class="quote-box">
+                <p><strong>The Performance Mindset:</strong> Performance isn't something you add to a system—it's something you design for. Every architectural decision, from database selection to API design, either contributes to or detracts from your system's performance characteristics.</p>
+            </div>
+
+            <h3>The Performance Trinity</h3>
+            <p>High-performance systems excel in three key areas simultaneously. Missing any one compromises the entire architecture:</p>
+            
+            <div class="performance-metrics">
+                <div class="metric-card">
+                    <div class="metric-value">≤100ms</div>
+                    <div class="metric-label">Response Time Target</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">99.99%</div>
+                    <div class="metric-label">Availability Goal</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">10K+</div>
+                    <div class="metric-label">Requests/Second</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">≤30%</div>
+                    <div class="metric-label">Resource Utilization</div>
+                </div>
+            </div>
+
+            <h3>The Four Pillars of Performance Architecture</h3>
+            
+            <div class="architecture-diagram">
+                <div class="diagram-title">Performance Architecture Pillars</div>
+                <div class="performance-pillars">
+                    <div class="pillar">
+                        <div class="pillar-header">
+                            <div class="pillar-icon"><i class="fas fa-bolt"></i></div>
+                            <div class="pillar-title">Latency Optimization</div>
+                        </div>
+                        <div class="pillar-content">
+                            Minimize time to first byte through caching, CDN strategies, and optimized data structures. Every millisecond counts in user perception.
+                        </div>
+                    </div>
+                    
+                    <div class="pillar">
+                        <div class="pillar-header">
+                            <div class="pillar-icon"><i class="fas fa-expand-arrows-alt"></i></div>
+                            <div class="pillar-title">Horizontal Scalability</div>
+                        </div>
+                        <div class="pillar-content">
+                            Design stateless services that can scale out rather than up. Handle increased load by adding more instances, not bigger machines.
+                        </div>
+                    </div>
+                    
+                    <div class="pillar">
+                        <div class="pillar-header">
+                            <div class="pillar-icon"><i class="fas fa-database"></i></div>
+                            <div class="pillar-title">Data Efficiency</div>
+                        </div>
+                        <div class="pillar-content">
+                            Optimize data access patterns, implement intelligent caching layers, and choose the right database for each use case.
+                        </div>
+                    </div>
+                    
+                    <div class="pillar">
+                        <div class="pillar-header">
+                            <div class="pillar-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="pillar-title">Resource Management</div>
+                        </div>
+                        <div class="pillar-content">
+                            Efficiently manage memory, CPU, and I/O operations. Implement connection pooling, request throttling, and graceful degradation.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Caching Strategies: Beyond the Basics</h3>
+            <p>Caching is often implemented naïvely, leading to stale data or cache stampedes. Here's a comparison of effective vs. problematic caching approaches:</p>
+
+            <div class="code-comparison">
+                <div class="code-example bad-example" data-title="Problematic Caching">
+                    <div class="code-header">
+                        <span>Naïve Caching Implementation</span>
+                        <span class="code-badge">Cache Stampede Risk</span>
+                    </div>
+                    <pre><code class="language-javascript">// Problem: Cache stampede and stale data
+class ProductService {
+  async getProduct(productId) {
+    const cacheKey = `product:${productId}`;
+    let product = await cache.get(cacheKey);
+    
+    if (!product) {
+      // All concurrent requests will hit the database
+      product = await database.query(
+        'SELECT * FROM products WHERE id = ?', 
+        [productId]
+      );
+      
+      // Simple TTL without consideration for access patterns
+      await cache.set(cacheKey, product, 300); // 5 minutes
+    }
+    
+    return product;
+  }
+  
+  async updateProduct(productId, updates) {
+    // Update database
+    await database.query('UPDATE products SET ? WHERE id = ?', 
+      [updates, productId]);
+    
+    // Invalidate cache
+    await cache.del(`product:${productId}`);
+    
+    // Problem: What about related caches?
+    // Problem: Read requests during update?
+  }
+}</code></pre>
+                </div>
+                
+                <div class="code-example good-example" data-title="Production-Ready Caching">
+                    <div class="code-header">
+                        <span>Advanced Caching Strategy</span>
+                        <span class="code-badge">Production Grade</span>
+                    </div>
+                    <pre><code class="language-javascript">// Solution: Cache-aside with stampede protection and warming
+class OptimizedProductService {
+  constructor() {
+    this.loadingPromises = new Map();
+    this.cacheLocks = new Map();
+  }
+  
+  async getProduct(productId) {
+    const cacheKey = `product:${productId}`;
+    const cacheKeyStale = `${cacheKey}:stale`;
+    
+    // Try to get fresh data
+    let product = await cache.get(cacheKey);
+    
+    if (product) {
+      // Background refresh if nearing expiration
+      this.maybeRefreshCache(productId, cacheKey);
+      return product;
+    }
+    
+    // Check for stale data while fresh loads
+    product = await cache.get(cacheKeyStale);
+    if (product) {
+      // Return stale data immediately while fresh loads
+      this.loadFreshProduct(productId, cacheKey);
+      return product;
+    }
+    
+    // Prevent cache stampede with lock
+    return this.loadWithLock(productId, cacheKey);
+  }
+  
+  async loadWithLock(productId, cacheKey) {
+    const lockKey = `lock:${cacheKey}`;
+    
+    // Try to acquire lock
+    const lockAcquired = await cache.set(
+      lockKey, 'locked', 'EX', 5, 'NX'
+    );
+    
+    if (lockAcquired) {
+      try {
+        // Only one request loads data
+        const product = await database.query(
+          'SELECT * FROM products WHERE id = ?', 
+          [productId]
+        );
+        
+        // Set fresh and stale cache with different TTLs
+        await cache.set(cacheKey, product, 300); // 5 minutes fresh
+        await cache.set(`${cacheKey}:stale`, product, 900); // 15 minutes stale
+        
+        return product;
+      } finally {
+        await cache.del(lockKey);
+      }
+    } else {
+      // Wait for another request to load
+      await this.waitForLock(lockKey, 5000);
+      return await cache.get(cacheKey);
+    }
+  }
+  
+  async updateProduct(productId, updates) {
+    // Use database transaction
+    const transaction = await database.beginTransaction();
+    
+    try {
+      // Update with optimistic locking
+      const result = await transaction.query(
+        `UPDATE products 
+         SET ? , version = version + 1 
+         WHERE id = ? AND version = ?`,
+        [updates, productId, updates.version]
+      );
+      
+      if (result.affectedRows === 0) {
+        throw new OptimisticLockError('Product modified by another process');
+      }
+      
+      // Get updated product
+      const updatedProduct = await transaction.query(
+        'SELECT * FROM products WHERE id = ?', 
+        [productId]
+      );
+      
+      // Update cache within transaction scope
+      const cacheKey = `product:${productId}`;
+      await cache.set(cacheKey, updatedProduct, 300);
+      
+      // Invalidate related caches
+      await this.invalidateRelatedCaches(productId);
+      
+      // Publish event for other services
+      await eventBus.publish('product.updated', {
+        productId,
+        changes: updates,
+        timestamp: Date.now()
+      });
+      
+      await transaction.commit();
+      return updatedProduct;
+      
+    } catch (error) {
+      await transaction.rollback();
+      throw error;
+    }
+  }
+}</code></pre>
+                </div>
+            </div>
+
+            <h3>Database Optimization Techniques</h3>
+            <p>The database is often the bottleneck in modern applications. Here are proven techniques for database performance:</p>
+            
+            <div class="db-optimization">
+                <table class="db-table">
+                    <thead>
+                        <tr>
+                            <th>Technique</th>
+                            <th>Performance Impact</th>
+                            <th>Complexity</th>
+                            <th>When to Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Read Replicas</strong></td>
+                            <td>High (10x read scaling)</td>
+                            <td><span class="technique-status status-recommended">Medium</span></td>
+                            <td>Read-heavy workloads with infrequent writes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Database Sharding</strong></td>
+                            <td>Very High (100x+ scaling)</td>
+                            <td><span class="technique-status status-caution">High</span></td>
+                            <td>Massive datasets exceeding single instance capacity</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Materialized Views</strong></td>
+                            <td>High (100ms → 5ms)</td>
+                            <td><span class="technique-status status-recommended">Low-Medium</span></td>
+                            <td>Complex queries with predictable access patterns</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Connection Pooling</strong></td>
+                            <td>Medium (30% reduction in latency)</td>
+                            <td><span class="technique-status status-recommended">Low</span></td>
+                            <td>Always - reduces connection overhead</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Query Optimization</strong></td>
+                            <td>Variable (2x-100x improvement)</td>
+                            <td><span class="technique-status status-recommended">Low</span></td>
+                            <td>Always - analyze and optimize slow queries</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Index Optimization</strong></td>
+                            <td>High (1000x for specific queries)</td>
+                            <td><span class="technique-status status-recommended">Medium</span></td>
+                            <td>Tables with >100k rows and specific query patterns</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Advanced Optimization Techniques</h3>
+            
+            <div class="optimization-techniques">
+                <div class="technique">
+                    <div class="technique-badge">1</div>
+                    <div class="technique-content">
+                        <div class="technique-header">
+                            <div class="technique-title">Lazy Loading with Prefetching</div>
+                            <div class="impact-badge">High Impact</div>
+                        </div>
+                        <p>Load data only when needed, but predict future needs and prefetch intelligently. Implement using GraphQL's @defer directive or custom pagination with prefetch hints.</p>
+                        <pre><code class="language-javascript">// Example: Intelligent prefetching
+async function getUserWithRelations(userId, prefetchHints = []) {
+  const user = await getUser(userId);
+  
+  // Prefetch based on usage patterns
+  const prefetchPromises = prefetchHints.map(hint => {
+    switch(hint) {
+      case 'orders': return prefetchUserOrders(userId);
+      case 'profile': return prefetchUserProfile(userId);
+      case 'settings': return prefetchUserSettings(userId);
+    }
+  });
+  
+  // Don't await - let these load in background
+  Promise.all(prefetchPromises).catch(console.error);
+  
+  return user;
+}</code></pre>
+                    </div>
+                </div>
+                
+                <div class="technique">
+                    <div class="technique-badge">2</div>
+                    <div class="technique-content">
+                        <div class="technique-header">
+                            <div class="technique-title">Request Batching & Dataloader Pattern</div>
+                            <div class="impact-badge impact-high">Very High Impact</div>
+                        </div>
+                        <p>Combine multiple similar requests into single operations to reduce database round trips. Essential for GraphQL and complex data relationships.</p>
+                        <pre><code class="language-javascript">// Example: Dataloader implementation
+class ProductLoader {
+  constructor() {
+    this.batchLoadFn = async (productIds) => {
+      // Single query for all products
+      const products = await database.query(
+        'SELECT * FROM products WHERE id IN (?)',
+        [productIds]
+      );
+      
+      // Return in same order as requested
+      return productIds.map(id => 
+        products.find(p => p.id === id) || new Error('Not found')
+      );
+    };
+    
+    this.loader = new DataLoader(this.batchLoadFn, {
+      cache: true,
+      maxBatchSize: 100 // Prevent SQL IN clause limits
+    });
+  }
+  
+  load(productId) {
+    return this.loader.load(productId);
+  }
+  
+  loadMany(productIds) {
+    return this.loader.loadMany(productIds);
+  }
+}</code></pre>
+                    </div>
+                </div>
+                
+                <div class="technique">
+                    <div class="technique-badge">3</div>
+                    <div class="technique-content">
+                        <div class="technique-header">
+                            <div class="technique-title">Edge Computing & CDN Logic</div>
+                            <div class="impact-badge">Medium Impact</div>
+                        </div>
+                        <p>Move computation closer to users using edge workers. Execute simple logic, authentication, and routing at the edge to reduce origin server load.</p>
+                        <pre><code class="language-javascript">// Example: Cloudflare Worker for edge caching
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request));
+});
+
+async function handleRequest(request) {
+  const url = new URL(request.url);
+  
+  // Cache API responses at edge
+  if (url.pathname.startsWith('/api/products/')) {
+    const cacheKey = new Request(url.toString(), request);
+    const cache = caches.default;
+    
+    let response = await cache.match(cacheKey);
+    
+    if (!response) {
+      response = await fetch(request);
+      
+      // Cache successful responses for 60 seconds
+      if (response.status === 200) {
+        const responseToCache = response.clone();
+        const headers = new Headers(responseToCache.headers);
+        headers.set('Cache-Control', 'public, max-age=60');
+        
+        response = new Response(responseToCache.body, {
+          status: responseToCache.status,
+          statusText: responseToCache.statusText,
+          headers
+        });
+        
+        event.waitUntil(cache.put(cacheKey, response.clone()));
+      }
+    }
+    
+    return response;
+  }
+  
+  return fetch(request);
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Monitoring and Continuous Optimization</h3>
+            <p>Performance isn't a one-time achievement—it requires continuous monitoring and optimization. Key metrics to track:</p>
+            
+            <div class="key-takeaways">
+                <h3>Critical Performance Metrics</h3>
+                <div class="key-takeaways-grid">
+                    <div class="takeaway-card">
+                        <div class="takeaway-icon">
+                            <i class="fas fa-stopwatch"></i>
+                        </div>
+                        <h4>P95 Latency</h4>
+                        <p>95th percentile response time. More meaningful than average—shows what most users experience.</p>
+                    </div>
+                    
+                    <div class="takeaway-card">
+                        <div class="takeaway-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h4>Error Rate</h4>
+                        <p>Percentage of failed requests. Should remain below 1% for healthy systems.</p>
+                    </div>
+                    
+                    <div class="takeaway-card">
+                        <div class="takeaway-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h4>Resource Utilization</h4>
+                        <p>CPU, memory, and I/O usage. Optimal range is 60-80% utilization for scaling headroom.</p>
+                    </div>
+                    
+                    <div class="takeaway-card">
+                        <div class="takeaway-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <h4>Throughput</h4>
+                        <p>Requests per second your system can handle. Monitor for capacity planning.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Architecture Decision Framework</h3>
+            <p>When designing for performance, use this decision framework to guide your choices:</p>
+            
+            <div class="code-comparison">
+                <div class="code-example good-example" data-title="Performance Decision Matrix">
+                    <div class="code-header">
+                        <span>Architecture Decision Framework</span>
+                        <span class="code-badge">Guide</span>
+                    </div>
+                    <pre><code class="language-javascript">// Performance-first architecture decisions
+const performanceDecisions = {
+  cachingStrategy: {
+    redis: {
+      useWhen: ['Sub-millisecond reads needed', 'High update frequency'],
+      avoidWhen: ['Data too large for memory', 'Consistency critical'],
+      complexity: 'Medium'
+    },
+    cdn: {
+      useWhen: ['Static assets', 'Global user base'],
+      avoidWhen: ['Personalized content', 'Frequent updates'],
+      complexity: 'Low'
+    },
+    databaseCache: {
+      useWhen: ['Complex queries', 'Transactional consistency needed'],
+      avoidWhen: ['High write volume', 'Limited database resources'],
+      complexity: 'High'
+    }
+  },
+  
+  databaseSelection: {
+    relational: {
+      useWhen: ['ACID compliance needed', 'Complex joins', 'Established schema'],
+      performanceTips: ['Use read replicas', 'Optimize indexes', 'Connection pooling']
+    },
+    document: {
+      useWhen: ['Flexible schema', 'Hierarchical data', 'High read throughput'],
+      performanceTips: ['Denormalize data', 'Use projection', 'Shard by tenant']
+    },
+    columnar: {
+      useWhen: ['Analytics queries', 'Time-series data', 'Aggregation heavy'],
+      performanceTips: ['Use compression', 'Partition by time', 'Materialized views']
+    }
+  },
+  
+  scalingApproach: {
+    vertical: {
+      useWhen: ['Monolithic application', 'Stateful components', 'Small team'],
+      maxScale: 'Limited by single machine capacity'
+    },
+    horizontal: {
+      useWhen: ['Stateless services', 'Microservices', 'Elastic scaling needed'],
+      maxScale: 'Limited by coordination overhead'
+    },
+    serverless: {
+      useWhen: ['Variable traffic patterns', 'Event-driven workloads', 'Cost optimization'],
+      maxScale: 'Provider limits'
+    }
+  }
+};</code></pre>
+                </div>
+            </div>
+
+            <h3>Conclusion: Performance as a Feature</h3>
+            <p>Performance architecture isn't about premature optimization or over-engineering. It's about making intelligent trade-offs based on your specific requirements, user expectations, and business constraints.</p>
+            
+            <p>The most performant systems I've built weren't those with the most advanced algorithms, but those with the most thoughtful architecture. Systems where every component was designed with scale in mind, where bottlenecks were anticipated rather than discovered, and where monitoring provided continuous feedback for improvement.</p>
+            
+            <p>Remember: performance is a feature that impacts user retention, conversion rates, and operational costs. By designing for performance from the beginning, you're not just building a faster system—you're building a better business.</p>
+            
+            <!-- Share Section -->
+            <div class="share-section">
+                <span class="share-text">Found this useful? Share it:</span>
+                <div class="share-buttons">
+                    <a href="https://twitter.com/intent/tweet?text=Architecture%20for%20Performance%3A%20Best%20Practices%20for%20Building%20Highly%20Functional%20and%20Resource-Efficient%20Systems%20by%20@darkmedo20&url=https://darkmedo20.github.io/blog/architecture-for-performance.html" class="share-btn twitter" aria-label="Share on Twitter" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://darkmedo20.github.io/blog/architecture-for-performance.html&title=Architecture%20for%20Performance%3A%20Best%20Practices%20for%20Building%20Highly%20Functional%20and%20Resource-Efficient%20Systems&summary=A%20comprehensive%20guide%20to%20designing%20high-performance%20systems%20from%20the%20ground%20up.&source=almostafa0338.github.io" class="share-btn linkedin" aria-label="Share on LinkedIn" target="_blank">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://darkmedo20.github.io/blog/architecture-for-performance.html" class="share-btn facebook" aria-label="Share on Facebook" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="share-btn link" aria-label="Copy link" id="copy-link">
+                        <i class="fas fa-link"></i>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://github.com/almostafa0338" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/almostafa0338/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://t.me/darkmedo20" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                    <a href="https://medium.com/@darkmedo20" aria-label="Medium"><i class="fab fa-medium"></i></a>
+                </div>
+                <div style="color: black;" class="copyright">
+                    <p>&copy; almostafa0338</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="../script.js"></script>
+    <script>
+        // Additional JavaScript for enhanced blog features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Copy link functionality
+            const copyLinkBtn = document.getElementById('copy-link');
+            if (copyLinkBtn) {
+                copyLinkBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const url = window.location.href;
+                    
+                    navigator.clipboard.writeText(url).then(() => {
+                        const originalIcon = copyLinkBtn.innerHTML;
+                        copyLinkBtn.innerHTML = '<i class="fas fa-check"></i>';
+                        copyLinkBtn.style.background = '#10b981';
+                        copyLinkBtn.style.borderColor = '#10b981';
+                        copyLinkBtn.style.color = 'white';
+                        
+                        setTimeout(() => {
+                            copyLinkBtn.innerHTML = originalIcon;
+                            copyLinkBtn.style.background = '';
+                            copyLinkBtn.style.borderColor = '';
+                            copyLinkBtn.style.color = '';
+                        }, 2000);
+                    });
+                });
+            }
+            
+            // Add smooth scrolling for anchor links
+            document.querySelectorAll('.blog-content a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href !== '#') {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(href);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 100,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+            
+            // Detect code blocks that need horizontal scrolling
+            document.querySelectorAll('.code-example pre').forEach(pre => {
+                const code = pre.querySelector('code');
+                const isScrollable = pre.scrollWidth > pre.clientWidth;
+                
+                if (isScrollable) {
+                    pre.classList.add('scrollable');
+                }
+            });
+            
+            // Initialize Prism.js for syntax highlighting
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+            
+            // Responsive text selection for code on mobile
+            if ('ontouchstart' in window) {
+                document.querySelectorAll('.code-example pre').forEach(pre => {
+                    pre.addEventListener('touchstart', function(e) {
+                        this.style.userSelect = 'text';
+                    }, { passive: true });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
