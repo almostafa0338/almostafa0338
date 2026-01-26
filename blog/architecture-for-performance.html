@@ -9,8 +9,6 @@
     <link rel="icon" href="ic.jpeg" type="image/icon type">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-    <!-- Prism.js CSS for syntax highlighting -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
     <style>
         /* Additional styles for enhanced blog */
@@ -92,158 +90,6 @@
         .quote-box p {
             margin-bottom: 0.5rem;
             color: #e2e8f0;
-        }
-        
-        .code-comparison {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin: 2.5rem 0;
-        }
-        
-        .code-example {
-            flex: 1;
-            min-width: 300px;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--box-shadow);
-            border: 1px solid var(--dark-border);
-            position: relative;
-        }
-        
-        .code-header {
-            background: var(--dark-card);
-            color: var(--light-text);
-            padding: 0.8rem 1rem;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--dark-border);
-        }
-        
-        .bad-example .code-header {
-            border-left: 4px solid #ef4444;
-        }
-        
-        .good-example .code-header {
-            border-left: 4px solid #10b981;
-        }
-        
-        .code-badge {
-            font-size: 0.8rem;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            background: rgba(255,255,255,0.1);
-        }
-        
-        /* Responsive code blocks */
-        .code-example pre {
-            margin: 0;
-            background: #1a1a1a;
-            padding: 1.5rem;
-            overflow-x: auto;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.85rem;
-            line-height: 1.4;
-            border-radius: 0 0 8px 8px;
-            position: relative;
-            -webkit-overflow-scrolling: touch;
-            max-width: 100%;
-        }
-        
-        /* Enhanced responsive code blocks */
-        .code-example pre code {
-            display: block;
-            white-space: pre;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            word-wrap: normal;
-            word-break: normal;
-            max-width: 100%;
-        }
-        
-        /* Mobile-optimized code font size */
-        @media (max-width: 768px) {
-            .code-example pre {
-                font-size: 0.75rem;
-                padding: 1.2rem;
-            }
-            
-            .code-example pre code {
-                font-size: 0.75rem;
-            }
-            
-            .code-comparison {
-                gap: 1.5rem;
-            }
-            
-            .code-example {
-                min-width: 100%;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .code-example pre {
-                font-size: 0.7rem;
-                padding: 1rem;
-            }
-            
-            .code-example pre code {
-                font-size: 0.7rem;
-            }
-            
-            .code-example pre {
-                overflow-x: scroll;
-            }
-        }
-        
-        /* Scrollbar styling for code blocks */
-        .code-example pre::-webkit-scrollbar {
-            height: 8px;
-            width: 8px;
-        }
-        
-        .code-example pre::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 4px;
-        }
-        
-        .code-example pre::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 4px;
-        }
-        
-        .code-example pre::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-dark);
-        }
-        
-        /* Override Prism.js styles */
-        .code-example pre code {
-            font-family: 'Roboto Mono', monospace !important;
-            background: transparent !important;
-            padding: 0 !important;
-            border-radius: 0 !important;
-            color: #e2e8f0 !important;
-            min-width: min-content;
-        }
-        
-        /* Mobile swipe indicator for code blocks */
-        .code-example pre.scrollable:after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 30px;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(26, 26, 26, 0.7));
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .code-example pre.scrollable:after {
-            opacity: 1;
         }
         
         .key-takeaways {
@@ -400,23 +246,6 @@
         .blog-name {
             margin-top: 15px;
             color: var(--light-text);
-        }
-        
-        /* Custom styling for inline code */
-        .blog-content code:not(pre code) {
-            background: rgba(59, 130, 246, 0.1);
-            color: #60a5fa;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.9rem;
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            word-break: break-word;
-        }
-        
-        /* Remove copy and fullscreen buttons */
-        .code-copy-btn, .code-fullscreen-btn {
-            display: none !important;
         }
         
         /* Performance metrics styling */
@@ -634,14 +463,6 @@
         
         /* Responsive adjustments */
         @media (max-width: 992px) {
-            .code-comparison {
-                gap: 1.5rem;
-            }
-            
-            .code-example {
-                min-width: 100%;
-            }
-            
             .performance-pillars {
                 grid-template-columns: 1fr;
             }
@@ -654,11 +475,6 @@
             
             .blog-title {
                 font-size: 2rem;
-            }
-            
-            .code-comparison {
-                flex-direction: column;
-                gap: 1.5rem;
             }
             
             .key-takeaways-grid {
@@ -709,15 +525,6 @@
                 font-size: 1rem;
             }
             
-            .code-example pre {
-                padding: 0.75rem;
-            }
-            
-            .code-example pre code {
-                font-size: 0.7rem;
-                overflow-x: scroll;
-            }
-            
             .share-section {
                 flex-direction: column;
                 text-align: center;
@@ -740,10 +547,6 @@
             
             .blog-content {
                 font-size: 0.95rem;
-            }
-            
-            .code-example pre code {
-                font-size: 0.65rem;
             }
         }
     </style>
@@ -857,164 +660,11 @@
             </div>
 
             <h3>Caching Strategies: Beyond the Basics</h3>
-            <p>Caching is often implemented naïvely, leading to stale data or cache stampedes. Here's a comparison of effective vs. problematic caching approaches:</p>
+            <p>Caching is often implemented naïvely, leading to stale data or cache stampedes. A common problematic approach involves simple time-to-live caching without considering concurrent access patterns or data consistency requirements.</p>
 
-            <div class="code-comparison">
-                <div class="code-example bad-example" data-title="Problematic Caching">
-                    <div class="code-header">
-                        <span>Naïve Caching Implementation</span>
-                        <span class="code-badge">Cache Stampede Risk</span>
-                    </div>
-                    <pre><code class="language-javascript">// Problem: Cache stampede and stale data
-class ProductService {
-  async getProduct(productId) {
-    const cacheKey = `product:${productId}`;
-    let product = await cache.get(cacheKey);
-    
-    if (!product) {
-      // All concurrent requests will hit the database
-      product = await database.query(
-        'SELECT * FROM products WHERE id = ?', 
-        [productId]
-      );
-      
-      // Simple TTL without consideration for access patterns
-      await cache.set(cacheKey, product, 300); // 5 minutes
-    }
-    
-    return product;
-  }
-  
-  async updateProduct(productId, updates) {
-    // Update database
-    await database.query('UPDATE products SET ? WHERE id = ?', 
-      [updates, productId]);
-    
-    // Invalidate cache
-    await cache.del(`product:${productId}`);
-    
-    // Problem: What about related caches?
-    // Problem: Read requests during update?
-  }
-}</code></pre>
-                </div>
-                
-                <div class="code-example good-example" data-title="Production-Ready Caching">
-                    <div class="code-header">
-                        <span>Advanced Caching Strategy</span>
-                        <span class="code-badge">Production Grade</span>
-                    </div>
-                    <pre><code class="language-javascript">// Solution: Cache-aside with stampede protection and warming
-class OptimizedProductService {
-  constructor() {
-    this.loadingPromises = new Map();
-    this.cacheLocks = new Map();
-  }
-  
-  async getProduct(productId) {
-    const cacheKey = `product:${productId}`;
-    const cacheKeyStale = `${cacheKey}:stale`;
-    
-    // Try to get fresh data
-    let product = await cache.get(cacheKey);
-    
-    if (product) {
-      // Background refresh if nearing expiration
-      this.maybeRefreshCache(productId, cacheKey);
-      return product;
-    }
-    
-    // Check for stale data while fresh loads
-    product = await cache.get(cacheKeyStale);
-    if (product) {
-      // Return stale data immediately while fresh loads
-      this.loadFreshProduct(productId, cacheKey);
-      return product;
-    }
-    
-    // Prevent cache stampede with lock
-    return this.loadWithLock(productId, cacheKey);
-  }
-  
-  async loadWithLock(productId, cacheKey) {
-    const lockKey = `lock:${cacheKey}`;
-    
-    // Try to acquire lock
-    const lockAcquired = await cache.set(
-      lockKey, 'locked', 'EX', 5, 'NX'
-    );
-    
-    if (lockAcquired) {
-      try {
-        // Only one request loads data
-        const product = await database.query(
-          'SELECT * FROM products WHERE id = ?', 
-          [productId]
-        );
-        
-        // Set fresh and stale cache with different TTLs
-        await cache.set(cacheKey, product, 300); // 5 minutes fresh
-        await cache.set(`${cacheKey}:stale`, product, 900); // 15 minutes stale
-        
-        return product;
-      } finally {
-        await cache.del(lockKey);
-      }
-    } else {
-      // Wait for another request to load
-      await this.waitForLock(lockKey, 5000);
-      return await cache.get(cacheKey);
-    }
-  }
-  
-  async updateProduct(productId, updates) {
-    // Use database transaction
-    const transaction = await database.beginTransaction();
-    
-    try {
-      // Update with optimistic locking
-      const result = await transaction.query(
-        `UPDATE products 
-         SET ? , version = version + 1 
-         WHERE id = ? AND version = ?`,
-        [updates, productId, updates.version]
-      );
-      
-      if (result.affectedRows === 0) {
-        throw new OptimisticLockError('Product modified by another process');
-      }
-      
-      // Get updated product
-      const updatedProduct = await transaction.query(
-        'SELECT * FROM products WHERE id = ?', 
-        [productId]
-      );
-      
-      // Update cache within transaction scope
-      const cacheKey = `product:${productId}`;
-      await cache.set(cacheKey, updatedProduct, 300);
-      
-      // Invalidate related caches
-      await this.invalidateRelatedCaches(productId);
-      
-      // Publish event for other services
-      await eventBus.publish('product.updated', {
-        productId,
-        changes: updates,
-        timestamp: Date.now()
-      });
-      
-      await transaction.commit();
-      return updatedProduct;
-      
-    } catch (error) {
-      await transaction.rollback();
-      throw error;
-    }
-  }
-}</code></pre>
-                </div>
-            </div>
+            <p>In contrast, production-ready caching implementations use sophisticated techniques like cache-aside patterns with stampede protection, background cache warming, and intelligent invalidation strategies. These systems maintain separate caches for fresh and stale data, implement distributed locks to prevent concurrent database hits, and gracefully degrade when cache systems experience issues.</p>
+
+            <p>Advanced caching also involves understanding when to use different caching layers—in-memory caches like Redis for sub-millisecond access, CDN caching for static assets, and database-level caching for complex queries requiring transactional consistency.</p>
 
             <h3>Database Optimization Techniques</h3>
             <p>The database is often the bottleneck in modern applications. Here are proven techniques for database performance:</p>
@@ -1080,25 +730,7 @@ class OptimizedProductService {
                             <div class="technique-title">Lazy Loading with Prefetching</div>
                             <div class="impact-badge">High Impact</div>
                         </div>
-                        <p>Load data only when needed, but predict future needs and prefetch intelligently. Implement using GraphQL's @defer directive or custom pagination with prefetch hints.</p>
-                        <pre><code class="language-javascript">// Example: Intelligent prefetching
-async function getUserWithRelations(userId, prefetchHints = []) {
-  const user = await getUser(userId);
-  
-  // Prefetch based on usage patterns
-  const prefetchPromises = prefetchHints.map(hint => {
-    switch(hint) {
-      case 'orders': return prefetchUserOrders(userId);
-      case 'profile': return prefetchUserProfile(userId);
-      case 'settings': return prefetchUserSettings(userId);
-    }
-  });
-  
-  // Don't await - let these load in background
-  Promise.all(prefetchPromises).catch(console.error);
-  
-  return user;
-}</code></pre>
+                        <p>Load data only when needed, but predict future needs and prefetch intelligently. This approach balances immediate responsiveness with anticipation of user behavior, reducing perceived latency while minimizing unnecessary data transfer.</p>
                     </div>
                 </div>
                 
@@ -1109,37 +741,7 @@ async function getUserWithRelations(userId, prefetchHints = []) {
                             <div class="technique-title">Request Batching & Dataloader Pattern</div>
                             <div class="impact-badge impact-high">Very High Impact</div>
                         </div>
-                        <p>Combine multiple similar requests into single operations to reduce database round trips. Essential for GraphQL and complex data relationships.</p>
-                        <pre><code class="language-javascript">// Example: Dataloader implementation
-class ProductLoader {
-  constructor() {
-    this.batchLoadFn = async (productIds) => {
-      // Single query for all products
-      const products = await database.query(
-        'SELECT * FROM products WHERE id IN (?)',
-        [productIds]
-      );
-      
-      // Return in same order as requested
-      return productIds.map(id => 
-        products.find(p => p.id === id) || new Error('Not found')
-      );
-    };
-    
-    this.loader = new DataLoader(this.batchLoadFn, {
-      cache: true,
-      maxBatchSize: 100 // Prevent SQL IN clause limits
-    });
-  }
-  
-  load(productId) {
-    return this.loader.load(productId);
-  }
-  
-  loadMany(productIds) {
-    return this.loader.loadMany(productIds);
-  }
-}</code></pre>
+                        <p>Combine multiple similar requests into single operations to reduce database round trips. This is particularly effective for systems with complex data relationships or GraphQL APIs where multiple related resources are frequently requested together.</p>
                     </div>
                 </div>
                 
@@ -1150,46 +752,7 @@ class ProductLoader {
                             <div class="technique-title">Edge Computing & CDN Logic</div>
                             <div class="impact-badge">Medium Impact</div>
                         </div>
-                        <p>Move computation closer to users using edge workers. Execute simple logic, authentication, and routing at the edge to reduce origin server load.</p>
-                        <pre><code class="language-javascript">// Example: Cloudflare Worker for edge caching
-addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event.request));
-});
-
-async function handleRequest(request) {
-  const url = new URL(request.url);
-  
-  // Cache API responses at edge
-  if (url.pathname.startsWith('/api/products/')) {
-    const cacheKey = new Request(url.toString(), request);
-    const cache = caches.default;
-    
-    let response = await cache.match(cacheKey);
-    
-    if (!response) {
-      response = await fetch(request);
-      
-      // Cache successful responses for 60 seconds
-      if (response.status === 200) {
-        const responseToCache = response.clone();
-        const headers = new Headers(responseToCache.headers);
-        headers.set('Cache-Control', 'public, max-age=60');
-        
-        response = new Response(responseToCache.body, {
-          status: responseToCache.status,
-          statusText: responseToCache.statusText,
-          headers
-        });
-        
-        event.waitUntil(cache.put(cacheKey, response.clone()));
-      }
-    }
-    
-    return response;
-  }
-  
-  return fetch(request);
-}</code></pre>
+                        <p>Move computation closer to users using edge workers. Execute simple logic, authentication, and routing at the edge to reduce origin server load and decrease latency for geographically distributed user bases.</p>
                     </div>
                 </div>
             </div>
@@ -1235,66 +798,13 @@ async function handleRequest(request) {
             </div>
 
             <h3>Architecture Decision Framework</h3>
-            <p>When designing for performance, use this decision framework to guide your choices:</p>
+            <p>When designing for performance, consider these decision frameworks:</p>
             
-            <div class="code-comparison">
-                <div class="code-example good-example" data-title="Performance Decision Matrix">
-                    <div class="code-header">
-                        <span>Architecture Decision Framework</span>
-                        <span class="code-badge">Guide</span>
-                    </div>
-                    <pre><code class="language-javascript">// Performance-first architecture decisions
-const performanceDecisions = {
-  cachingStrategy: {
-    redis: {
-      useWhen: ['Sub-millisecond reads needed', 'High update frequency'],
-      avoidWhen: ['Data too large for memory', 'Consistency critical'],
-      complexity: 'Medium'
-    },
-    cdn: {
-      useWhen: ['Static assets', 'Global user base'],
-      avoidWhen: ['Personalized content', 'Frequent updates'],
-      complexity: 'Low'
-    },
-    databaseCache: {
-      useWhen: ['Complex queries', 'Transactional consistency needed'],
-      avoidWhen: ['High write volume', 'Limited database resources'],
-      complexity: 'High'
-    }
-  },
-  
-  databaseSelection: {
-    relational: {
-      useWhen: ['ACID compliance needed', 'Complex joins', 'Established schema'],
-      performanceTips: ['Use read replicas', 'Optimize indexes', 'Connection pooling']
-    },
-    document: {
-      useWhen: ['Flexible schema', 'Hierarchical data', 'High read throughput'],
-      performanceTips: ['Denormalize data', 'Use projection', 'Shard by tenant']
-    },
-    columnar: {
-      useWhen: ['Analytics queries', 'Time-series data', 'Aggregation heavy'],
-      performanceTips: ['Use compression', 'Partition by time', 'Materialized views']
-    }
-  },
-  
-  scalingApproach: {
-    vertical: {
-      useWhen: ['Monolithic application', 'Stateful components', 'Small team'],
-      maxScale: 'Limited by single machine capacity'
-    },
-    horizontal: {
-      useWhen: ['Stateless services', 'Microservices', 'Elastic scaling needed'],
-      maxScale: 'Limited by coordination overhead'
-    },
-    serverless: {
-      useWhen: ['Variable traffic patterns', 'Event-driven workloads', 'Cost optimization'],
-      maxScale: 'Provider limits'
-    }
-  }
-};</code></pre>
-                </div>
-            </div>
+            <p><strong>Caching Strategy Selection:</strong> Choose Redis for sub-millisecond reads and high update frequency, CDN caching for static assets with global distribution, and database-level caching for complex queries requiring transactional consistency.</p>
+            
+            <p><strong>Database Selection:</strong> Use relational databases when ACID compliance and complex joins are needed, document databases for flexible schema and hierarchical data, and columnar databases for analytics and time-series workloads.</p>
+            
+            <p><strong>Scaling Approach:</strong> Consider vertical scaling for monolithic applications with stateful components, horizontal scaling for stateless services requiring elastic capacity, and serverless architectures for variable traffic patterns and event-driven workloads.</p>
 
             <h3>Conclusion: Performance as a Feature</h3>
             <p>Performance architecture isn't about premature optimization or over-engineering. It's about making intelligent trade-offs based on your specific requirements, user expectations, and business constraints.</p>
@@ -1310,7 +820,7 @@ const performanceDecisions = {
                     <a href="https://twitter.com/intent/tweet?text=Architecture%20for%20Performance%3A%20Best%20Practices%20for%20Building%20Highly%20Functional%20and%20Resource-Efficient%20Systems%20by%20@darkmedo20&url=https://darkmedo20.github.io/blog/architecture-for-performance.html" class="share-btn twitter" aria-label="Share on Twitter" target="_blank">
                         <i class="fab fa-twitter"></i>
                     </a>
-                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://darkmedo20.github.io/blog/architecture-for-performance.html&title=Architecture%20for%20Performance%3A%20Best%20Practices%20for%20Building%20Highly%20Functional%20and%20Resource-Efficient%20Systems&summary=A%20comprehensive%20guide%20to%20designing%20high-performance%20systems%20from%20the%20ground%20up.&source=almostafa0338.github.io" class="share-btn linkedin" aria-label="Share on LinkedIn" target="_blank">
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://darkmedo20.github.io/blog/architecture-for-performance.html&title=Architecture%20for%20Performance%3A%20Best%20Practices%20for%20Building%20Highly%20Functional%20and%20Resource-Efficient%20Systems&summary=A%20comprehensive%20guide%20to%20designing%20high-performance%20systems%20from%20the%20ground%20up.&source=darkmedo20.github.io" class="share-btn linkedin" aria-label="Share on LinkedIn" target="_blank">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
                     <a href="https://www.facebook.com/sharer/sharer.php?u=https://darkmedo20.github.io/blog/architecture-for-performance.html" class="share-btn facebook" aria-label="Share on Facebook" target="_blank">
@@ -1330,13 +840,13 @@ const performanceDecisions = {
         <div class="container">
             <div class="footer-content">
                 <div class="social-links">
-                    <a href="https://github.com/almostafa0338" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://github.com/darkmedo20" aria-label="GitHub"><i class="fab fa-github"></i></a>
                     <a href="https://www.linkedin.com/in/almostafa0338/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     <a href="https://t.me/darkmedo20" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
-                    <a href="https://medium.com/@darkmedo20" aria-label="Medium"><i class="fab fa-medium"></i></a>
+                    <a href="https://medium.com/@drakmedo20" aria-label="Medium"><i class="fab fa-medium"></i></a>
                 </div>
                 <div style="color: black;" class="copyright">
-                    <p>&copy; almostafa0338</p>
+                    <p>&copy; darkmedo20</p>
                 </div>
             </div>
         </div>
@@ -1347,9 +857,7 @@ const performanceDecisions = {
         <i class="fas fa-arrow-up"></i>
     </a>
 
-    <!-- Prism.js for syntax highlighting -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <!-- Scripts -->
     <script src="../script.js"></script>
     <script>
         // Additional JavaScript for enhanced blog features
@@ -1394,30 +902,6 @@ const performanceDecisions = {
                     }
                 });
             });
-            
-            // Detect code blocks that need horizontal scrolling
-            document.querySelectorAll('.code-example pre').forEach(pre => {
-                const code = pre.querySelector('code');
-                const isScrollable = pre.scrollWidth > pre.clientWidth;
-                
-                if (isScrollable) {
-                    pre.classList.add('scrollable');
-                }
-            });
-            
-            // Initialize Prism.js for syntax highlighting
-            if (typeof Prism !== 'undefined') {
-                Prism.highlightAll();
-            }
-            
-            // Responsive text selection for code on mobile
-            if ('ontouchstart' in window) {
-                document.querySelectorAll('.code-example pre').forEach(pre => {
-                    pre.addEventListener('touchstart', function(e) {
-                        this.style.userSelect = 'text';
-                    }, { passive: true });
-                });
-            }
         });
     </script>
 </body>
