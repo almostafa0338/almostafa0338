@@ -62,12 +62,12 @@ const portfolioData = {
     
     projects: [
         {
-            title: "Final Year GPA Predictor",
-            description: "A machine learning model for predicting final year GPA of IT students",
-            technologies: ["Machine Learning", "Scikit-learn", "Python"],
-            repository: "https://github.com/almostafa0338/Project_38_GPA_Predictor",
+            title: "TaskFlow API",
+            description: "A modern, production-ready task management system built with ASP.NET Core 8, featuring enterprise-grade architecture and comprehensive security.",
+            technologies: ["C#", "ASP.NET", "PostgreSQL"],
+            repository: "https://github.com/almostafa0338/TaskFlow-API",
             color: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
-            image: "images/FYGPA.png"
+            image: "images/TaskFlowAPI.png"
         },
         {
             title: "Hiwarat LMS",
