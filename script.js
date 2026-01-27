@@ -72,18 +72,18 @@ const portfolioData = {
         {
             title: "Hiwarat LMS",
             description: "A seamless learning ecosystem designed to bridge the gap between lecture hall listening and true academic mastery",
-            technologies: ["React", "JavaScript", "CSS", "Responsive Design"],
+            technologies: ["React", "HTML", "JavaScript", "CSS", "Responsive Design"],
             repository: "https://github.com/almostafa0338/Hiwarat-LMS",
             color: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
             image: "images/hiwarat.png"
         },
         {
-            title: "LoomStack",
-            description: "A high-performance web framework designed to seamlessly weave together disparate microservices into a single, cohesive digital fabric.",
-            technologies: ["C#", "TypeScript", "Angular", "PostgreSQL"],
-            repository: "https://github.com/almostafa0338/LoomStack",
+            title: "Personal Blog Platform",
+            description: "A full-featured blogging platform built with Django, PostgreSQL, and Bootstrap 5.",
+            technologies: ["Python", "Django", "Bootstrap 5", "PostgreSQL"],
+            repository: "https://github.com/almostafa0338/Personal-Blog-Platform",
             color: "linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)",
-            image: "images/loomstack.png"
+            image: "images/personal-blog-platform.png"
         }
     ],
     
