@@ -119,7 +119,7 @@ const portfolioData = {
     
     typingTexts: [
         "Backend Engineer",
-        "Web Developer",
+        ".NET Developer",
         "Software Engineer",
     ]
 };
